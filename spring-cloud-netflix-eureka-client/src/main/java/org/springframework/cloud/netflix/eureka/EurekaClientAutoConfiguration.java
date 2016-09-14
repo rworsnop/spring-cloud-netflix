@@ -22,7 +22,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.netflix.appinfo.HealthCheckHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -40,10 +39,8 @@ import org.springframework.cloud.client.CommonsClientAutoConfiguration;
 import org.springframework.cloud.client.actuator.HasFeatures;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.noop.NoopDiscoveryClientAutoConfiguration;
-import org.springframework.cloud.client.serviceregistry.ServiceRegistry;
 import org.springframework.cloud.commons.util.InetUtils;
 import org.springframework.cloud.context.scope.refresh.RefreshScope;
-import org.springframework.cloud.netflix.EurekaRegistration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -54,6 +51,7 @@ import org.springframework.util.StringUtils;
 
 import com.netflix.appinfo.ApplicationInfoManager;
 import com.netflix.appinfo.EurekaInstanceConfig;
+import com.netflix.appinfo.HealthCheckHandler;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.DiscoveryClient.DiscoveryClientOptionalArgs;
 import com.netflix.discovery.EurekaClient;
@@ -133,8 +131,8 @@ public class EurekaClientAutoConfiguration {
 	}
 
 	@Bean
-	public EurekaServiceRegistry eurekaServiceRegistry(EurekaClient eurekaClient) {
-		return new EurekaServiceRegistry(eurekaClient);
+	public EurekaServiceRegistry eurekaServiceRegistry() {
+		return new EurekaServiceRegistry();
 	}
 
 	@Bean
